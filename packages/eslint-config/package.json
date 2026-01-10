@@ -1,0 +1,18 @@
+{
+  "name": "@salarly/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./turbo": "./turbo.js",
+    "./tanstack-start": "./tanstack-start.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@tanstack/eslint-config": "^0.3.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-turbo": "^2.7.3",
+    "typescript-eslint": "^8.52.0"
+  }
+}

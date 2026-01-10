@@ -1,0 +1,17 @@
+{
+  "extends": "@salarly/typescript-config/tanstack-start.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "eslint.config.js",
+    "prettier.config.js",
+    "vite.config.js"
+  ],
+  "exclude": ["node_modules"]
+}
