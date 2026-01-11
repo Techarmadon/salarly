@@ -4,15 +4,19 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./turbo": "./turbo.js",
-    "./tanstack-start": "./tanstack-start.js"
+    "./base": "./base.js",
+    "./tanstack-start": "./tanstack-start.js",
+    "./react-internal": "./react-internal.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@tanstack/eslint-config": "^0.3.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-turbo": "^2.7.3",
+    "globals": "^17.0.0",
     "typescript-eslint": "^8.52.0"
   }
 }
