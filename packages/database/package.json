@@ -1,0 +1,34 @@
+{
+  "name": "@salarly/database",
+  "version": "0.0.0",
+  "exports": {
+    ".": "./src/client.ts"
+  },
+  "scripts": {
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "format": "prisma format",
+    "generate": "prisma generate",
+    "lint": "eslint . --max-warnings 0",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "7.2.0",
+    "@prisma/client-runtime-utils": "7.2.0",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@salarly/eslint-config": "workspace:*",
+    "@salarly/typescript-config": "workspace:*",
+    "@types/pg": "^8.16.0",
+    "eslint": "^9.39.2",
+    "prisma": "7.2.0",
+    "rimraf": "^6.1.2",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  }
+}
