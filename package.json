@@ -9,9 +9,14 @@
   "packageManager": "pnpm@10.27.0",
   "scripts": {
     "build": "turbo run build",
+    "db:migrate:deploy": "turbo run db:migrate:deploy",
+    "db:migrate:dev": "turbo run db:migrate:dev",
+    "db:push": "turbo run db:push",
+    "db:seed": "turbo run db:seed",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "generate": "turbo run generate",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
