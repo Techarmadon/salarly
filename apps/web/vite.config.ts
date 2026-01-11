@@ -15,15 +15,8 @@ export default defineConfig({
     devtools(),
     nitro(),
     tailwindcss(),
-    // Enables Vite to resolve imports using path aliases.
+    tanstackStart(),
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
-    tanstackStart({
-      srcDirectory: 'src', // This is the default
-      router: {
-        // Specifies the directory TanStack Router uses for your routes.
-        routesDirectory: 'app', // Defaults to "routes", relative to srcDirectory
-      },
-    }),
     viteReact({ babel: { plugins: ['babel-plugin-react-compiler'] } }),
   ],
 })

@@ -2,6 +2,7 @@ packages:
   - apps/*
   - packages/*
 
-ignoredBuiltDependencies:
+onlyBuiltDependencies:
+  - core-js-pure
   - esbuild
   - unrs-resolver

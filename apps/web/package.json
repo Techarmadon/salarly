@@ -15,8 +15,17 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.147.0",
-    "@tanstack/react-start": "^1.147.0",
+    "@salarly/ui": "workspace:*",
+    "@t3-oss/env-core": "^0.13.10",
+    "@tanstack/react-devtools": "^0.9.2",
+    "@tanstack/react-query": "^5.90.16",
+    "@tanstack/react-query-devtools": "^5.91.2",
+    "@tanstack/react-router": "^1.147.1",
+    "@tanstack/react-router-devtools": "^1.147.1",
+    "@tanstack/react-router-ssr-query": "^1.147.1",
+    "@tanstack/react-start": "^1.147.1",
+    "@tanstack/react-table": "^8.21.3",
+    "motion": "^12.25.0",
     "nitro": "3.0.1-alpha.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
