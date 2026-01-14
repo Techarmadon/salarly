@@ -15,6 +15,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.2.0",
     "@salarly/database": "workspace:*",
     "@salarly/ui": "workspace:*",
     "@t3-oss/env-core": "^0.13.10",
@@ -29,6 +30,7 @@
     "better-auth": "^1.4.12",
     "motion": "^12.25.0",
     "nitro": "3.0.1-alpha.1",
+    "pg": "^8.16.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "zod": "^4.3.5"
