@@ -16,7 +16,6 @@ jobs:
   deployment:
     if: ${{ github.repository == 'Techarmadon/salarly' }}
     runs-on: ubuntu-latest
-    needs: prisma-setup
 
     steps:
       - uses: actions/checkout@v4
