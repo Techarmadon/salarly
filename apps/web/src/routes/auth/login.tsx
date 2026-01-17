@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute, redirect } from '@tanstack/react-router'
 import { Button } from '@salarly/ui/components/button'
 import {
   Card,
@@ -8,18 +8,46 @@ import {
   CardHeader,
   CardTitle,
 } from '@salarly/ui/components/card'
-import { Input } from '@salarly/ui/components/input'
-import { Label } from '@salarly/ui/components/label'
 import { Separator } from '@salarly/ui/components/separator'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { FieldError } from '@salarly/ui/components/field'
+import type { BetterAuthError, LoginForm } from '@/lib/definitions'
 import piggy from '@/public/piggy.png'
+import { getCurrentUser, loginFn } from '@/lib/auth-actions'
+import { LoginFormSchema } from '@/lib/definitions'
+import { FormInput } from '@/components/form'
 
 export const Route = createFileRoute('/auth/login')({
   component: LoginPage,
+  beforeLoad: async () => {
+    const user = await getCurrentUser()
+
+    if (user) throw redirect({ to: '/' })
+  },
 })
 
 function LoginPage() {
+  const [error, setError] = useState<BetterAuthError | null>(null)
+
+  const form = useForm({
+    resolver: zodResolver(LoginFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+
+  async function onSubmit(values: LoginForm) {
+    // eslint-disable-next-line no-shadow
+    const error = await loginFn(values)
+
+    if (error) setError(error)
+  }
+
   return (
-    <div className='flex items-center justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black'>
+    <div className='flex items-center justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black p-4'>
       <Card className='container flex flex-row'>
         <div className='flex-1 space-y-4 max-w-110'>
           <CardHeader>
@@ -27,15 +55,32 @@ function LoginPage() {
           </CardHeader>
           <Separator />
           <CardContent className='space-y-3'>
-            <form className='space-y-4'>
-              <Label>Email</Label>
-              <Input />
-              <Label>Password</Label>
-              <Input />
+            <form
+              id='loginForm'
+              className='space-y-4'
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
+              <FormInput
+                formControl={form.control}
+                formLabel={'Email'}
+                formName='email'
+              />
+
+              <FormInput
+                formControl={form.control}
+                formLabel={'Password'}
+                formName='password'
+                type='password'
+              />
             </form>
+            {error && (
+              <FieldError className='text-red-500'>{error.message}</FieldError>
+            )}
           </CardContent>
           <CardFooter className='flex flex-col'>
-            <Button className='w-full'>Login</Button>
+            <Button form='loginForm' className='w-full'>
+              Login
+            </Button>
             <CardDescription className='flex-1 flex justify-center items-center'>
               <span>Don't have an account?</span>
               <Button
@@ -49,7 +94,7 @@ function LoginPage() {
             </CardDescription>
           </CardFooter>
         </div>
-        <CardContent className='flex-1'>
+        <CardContent className='flex-1 max-md:hidden flex items-center'>
           <img src={piggy} alt='piggy' className='rounded-md' />
         </CardContent>
       </Card>

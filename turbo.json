@@ -26,6 +26,11 @@
     "db:seed": {
       "cache": false
     },
+    "start": { "cache": false, "persistent": true },
+    "studio": {
+      "cache": false,
+      "persistent": true
+    },
     "dev": {
       "cache": false,
       "persistent": true
