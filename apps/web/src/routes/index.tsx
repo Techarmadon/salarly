@@ -1,33 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Button } from '@salarly/ui/components/button'
-import { useState } from 'react'
-import { FieldError } from '@salarly/ui/components/field'
-import type { BetterAuthError } from '@/lib/definitions'
-import { authMiddleware } from '@/middleware/auth-middleware'
-import { signoutFn } from '@/lib/auth-actions'
+import { useAuth } from '@/context/auth-provider'
 
 function Home() {
-  const [error, setError] = useState<BetterAuthError | null>(null)
-
-  async function signoutHandler() {
-    // eslint-disable-next-line no-shadow
-    const error = await signoutFn()
-
-    if (error) setError(error)
-  }
-
+  const { user } = useAuth()
   return (
-    <div className='flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black'>
+    <div className='flex min-h-screen-with-nav items-center justify-center bg-zinc-50 font-sans dark:bg-black'>
       <div className='flex flex-col'>
-        <h1>Home</h1>
-        <Button onClick={signoutHandler}>Logout Out</Button>
-        {error && <FieldError>{error.message}</FieldError>}
+        <h1>{user ? `Welcome back, ${user.name}` : 'Welcome to Salary!'}</h1>
       </div>
     </div>
   )
 }
 
 export const Route = createFileRoute('/')({
-  component: Home,
-  server: { middleware: [authMiddleware] },
+  component: Home
 })

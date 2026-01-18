@@ -28,7 +28,7 @@ export async function loginFn(ctx: LoginForm) {
   return error
 }
 
-export async function signoutFn() {
+export async function logoutFn() {
   const router = getRouter()
   const { error } = await authClient.signOut()
 
@@ -40,12 +40,25 @@ export async function signoutFn() {
 export const getSession = createServerFn({ method: 'GET' }).handler(
   async () => {
     const headers = getRequestHeaders()
-    const session = await auth.api.getSession({ headers })
+    const data = await auth.api.getSession({ headers })
 
-    if (!session) {
+    if (!data) {
       return null
     }
 
-    return session
+    return data.session
+  },
+)
+
+export const getUser = createServerFn({ method: 'GET' }).handler(
+  async () => {
+    const headers = getRequestHeaders()
+    const data = await auth.api.getSession({ headers })
+
+    if (!data) {
+      return null
+    }
+
+    return data.user
   },
 )

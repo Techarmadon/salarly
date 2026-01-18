@@ -19,9 +19,11 @@ import { getSession, loginFn } from '@/lib/auth-actions'
 import { LoginFormSchema } from '@/lib/definitions'
 import { FormInput } from '@/components/form'
 
+
 export const Route = createFileRoute('/auth/login')({
   component: LoginPage,
   beforeLoad: async () => {
+
     const session = await getSession()
 
     if (session) throw redirect({ to: '/' })
@@ -40,14 +42,13 @@ function LoginPage() {
   })
 
   async function onSubmit(values: LoginForm) {
-    // eslint-disable-next-line no-shadow
-    const error = await loginFn(values)
+    const _error = await loginFn(values)
 
-    if (error) setError(error)
+    if (error) setError(_error)
   }
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black p-4'>
+    <div className='flex items-center justify-center min-h-screen-with-nav bg-zinc-50 font-sans dark:bg-black p-4'>
       <Card className='container flex flex-row'>
         <div className='flex-1 space-y-4 max-w-110'>
           <CardHeader>

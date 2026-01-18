@@ -1,4 +1,4 @@
-// vite.config.ts
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
@@ -18,5 +18,8 @@ export default defineConfig({
     tanstackStart(),
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
     viteReact({ babel: { plugins: ['babel-plugin-react-compiler'] } }),
-  ],
+  ], test: {
+    environment: 'jsdom',
+    setupFiles: [],
+  },
 })

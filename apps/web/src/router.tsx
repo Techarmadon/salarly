@@ -1,6 +1,7 @@
 import { createRouter } from '@tanstack/react-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 import { routeTree } from './routeTree.gen'
+import { AuthProvider } from './context/auth-provider'
 import type { ReactNode } from 'react'
 import QueryProvider, {
   getContext,
@@ -14,10 +15,12 @@ export function getRouter() {
     context: { ...reactQueryContext },
     defaultPreload: 'intent',
     scrollRestoration: true,
-    defaultNotFoundComponent: () => {},
+    defaultNotFoundComponent: () => { },
     Wrap: (props: { children: ReactNode }) => {
       return (
-        <QueryProvider {...reactQueryContext}>{props.children}</QueryProvider>
+        <AuthProvider>
+          <QueryProvider {...reactQueryContext}>{props.children}</QueryProvider>
+        </AuthProvider>
       )
     },
   })
