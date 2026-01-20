@@ -11,10 +11,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FieldError } from '@salarly/ui/components/field'
-import type { BetterAuthError, SignupForm } from '@/lib/definitions'
-import { SignupFormSchema } from '@/lib/definitions'
+import type { BetterAuthError, SignupForm } from '@/lib/types/auth.definitions'
+import { SignupFormSchema } from '@/lib/types/auth.definitions'
 import { FormInput } from '@/components/form'
 import { signupFn } from '@/lib/auth-actions'
+import Base from '@/components/layout/base'
 
 export default function SignupPage() {
   const [error, setError] = useState<BetterAuthError | null>(null)
@@ -31,7 +32,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black p-4'>
+    <Base>
       <Card className='max-w-110 w-full'>
         <CardHeader>
           <CardTitle>New User</CardTitle>
@@ -74,6 +75,6 @@ export default function SignupPage() {
           </Button>
         </CardFooter>
       </Card>
-    </div>
+    </Base>
   )
 }

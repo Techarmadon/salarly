@@ -14,11 +14,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FieldError } from '@salarly/ui/components/field'
 import { Spinner } from '@salarly/ui/components/spinner'
-import type { BetterAuthError, LoginForm } from '@/lib/definitions'
+import type { BetterAuthError, LoginForm } from '@/lib/types/auth.definitions'
 import piggy from '@/public/piggy.png'
 import { loginFn } from '@/lib/auth-actions'
-import { LoginFormSchema } from '@/lib/definitions'
+import { LoginFormSchema } from '@/lib/types/auth.definitions'
 import { FormInput } from '@/components/form'
+import Base from '@/components/layout/base'
 
 export default function LoginPage() {
   const [error, setError] = useState<BetterAuthError | null>(null)
@@ -40,7 +41,7 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState
 
   return (
-    <div className='flex items-center justify-center min-h-screen-with-nav bg-zinc-50 font-sans dark:bg-black p-4'>
+    <Base>
       <Card className='container flex flex-row'>
         <div className='flex-1 space-y-4 max-w-110'>
           <CardHeader>
@@ -58,13 +59,12 @@ export default function LoginPage() {
                 formLabel={'Email'}
                 formName='email'
               />
-
               <FormInput
                 formControl={form.control}
                 formLabel={
                   <div className='flex justify-between items-center w-full'>
                     <span>Password</span>
-                    {/* <Button
+                    <Button
                       type='button'
                       variant='link'
                       size='sm'
@@ -72,7 +72,7 @@ export default function LoginPage() {
                       asChild
                     >
                       <Link to='/auth/forgot-password'>Forgot Password?</Link>
-                    </Button> */}
+                    </Button>
                   </div>
                 }
                 formName='password'
@@ -104,6 +104,6 @@ export default function LoginPage() {
           <img src={piggy} alt='piggy' className='rounded-md' />
         </CardContent>
       </Card>
-    </div>
+    </Base>
   )
 }

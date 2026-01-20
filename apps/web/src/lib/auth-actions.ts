@@ -2,13 +2,11 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { serverEnv } from 'env'
 import type { User } from 'better-auth'
-import type { LoginForm, SignupForm } from './definitions'
+import type { LoginForm, SignupForm } from './types/auth.definitions'
 import { authClient } from '@/integrations/auth/client'
 import { auth } from '@/integrations/auth/server'
 import { getRouter } from '@/router'
 import { transporter } from '@/integrations/mail/nodemailer'
-
-const from = serverEnv.FROM_AUTH_ALIAS
 
 export async function signupFn(ctx: SignupForm) {
   const router = getRouter()
@@ -42,24 +40,41 @@ export async function logoutFn() {
   router.navigate({ to: '/auth/login' })
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
-export async function sendResetPassword(data: {
-  user: User
-  url: string
-  token: string
-}) {
-  const {
-    user: { email, name },
-    url,
-  } = data
+export const sendResetPassword = createServerFn({ method: 'POST' })
+  .inputValidator((data: { user: User; url: string; token: string }) => data)
+  .handler(
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async ({ data }) => {
+      const {
+        user: { email, name },
+        url,
+      } = data
+      void transporter.sendMail({
+        from: serverEnv.FROM_AUTH_ALIAS,
+        to: email,
+        subject: 'Reset your password - Action required',
+        text: `Copy the link to your browser to reset your password ${url}`,
+      })
+    },
+  )
 
-  void transporter.sendMail({
-    from,
-    to: email,
-    subject: 'Reset your password - Action required',
-    text: `Copy the link to your browser to reset your password ${url}`,
-  })
-}
+// export async function sendResetPassword(data: {
+//   user: User
+//   url: string
+//   token: string
+// }) {
+//   const {
+//     user: { email, name },
+//     url,
+//   } = data
+
+//   void transporter.sendMail({
+//     from,
+//     to: email,
+//     subject: 'Reset your password - Action required',
+//     text: `Copy the link to your browser to reset your password ${url}`,
+//   })
+// }
 
 export const getSession = createServerFn({ method: 'GET' }).handler(
   async () => {
