@@ -58,7 +58,7 @@ export type SignupForm = z.infer<typeof SignupFormSchema>
 
 export const LoginFormSchema = z.object({
   email: z.email(),
-  password: z.string().nonempty(),
+  password: z.string().nonempty({ error: '• Password cannot be empty.' }),
 })
 
 export type LoginForm = z.infer<typeof LoginFormSchema>

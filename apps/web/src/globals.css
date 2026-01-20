@@ -8,5 +8,5 @@ body {
 }
 
 @theme inline {
-  --spacing-screen-with-nav: calc(100dvh - 68px)
+  --spacing-screen-with-nav: calc(100dvh - 68px);
 }

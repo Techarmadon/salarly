@@ -10,7 +10,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
 import globalStyles from '@/globals.css?url'
 import TanStackQueryQueryDevtools from '@/integrations/tanstack-query/devtools'
-import Navbar from '@/components/nav'
+import Navbar from '@/components/layout/nav'
 
 const head = () => ({
   meta: [
@@ -19,7 +19,7 @@ const head = () => ({
       name: 'viewport',
       content: 'width=device-width, initial-scale=1',
     },
-    { title: 'TanStack Start Starter' },
+    { title: 'Salarly' },
   ],
   links: [
     {
@@ -42,8 +42,11 @@ function RootLayout({ children }: RootLayoutProps) {
       <body>
         <Navbar />
         {children}
-        <Toaster toastOptions={{ classNames: { error: '!text-red-500 !border-red-500/20' } }} />
-
+        <Toaster
+          toastOptions={{
+            classNames: { error: '!text-red-500 !border-red-500/20' },
+          }}
+        />
 
         <TanStackDevtools
           config={{ position: 'bottom-right' }}

@@ -14,6 +14,12 @@ export const serverEnv = createEnv({
   server: {
     DATABASE_URL: z.url(),
     BETTER_AUTH_URL: z.url(),
+
+    SMTP_HOST: z.string(),
+    SMTP_USER: z.string(),
+    SMTP_PASS: z.string(),
+
+    FROM_AUTH_ALIAS: z.string(),
   },
 
   runtimeEnv: process.env,

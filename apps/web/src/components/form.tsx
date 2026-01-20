@@ -83,7 +83,9 @@ function FormBase<
       render={({ field, fieldState }) => {
         const labelElement = (
           <>
-            <FieldLabel htmlFor={field.name}>{formLabel}</FieldLabel>
+            <FieldLabel htmlFor={field.name} className='w-full'>
+              {formLabel}
+            </FieldLabel>
             {formDescription && (
               <FieldDescription>{formDescription}</FieldDescription>
             )}

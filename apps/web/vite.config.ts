@@ -18,7 +18,8 @@ export default defineConfig({
     tanstackStart(),
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
     viteReact({ babel: { plugins: ['babel-plugin-react-compiler'] } }),
-  ], test: {
+  ],
+  test: {
     environment: 'jsdom',
     setupFiles: [],
   },

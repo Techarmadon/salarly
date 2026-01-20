@@ -15,7 +15,7 @@ export function getRouter() {
     context: { ...reactQueryContext },
     defaultPreload: 'intent',
     scrollRestoration: true,
-    defaultNotFoundComponent: () => { },
+    defaultNotFoundComponent: () => {},
     Wrap: (props: { children: ReactNode }) => {
       return (
         <AuthProvider>
