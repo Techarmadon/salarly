@@ -38,7 +38,7 @@ function RootLayoutNav() {
     } else if (isLoggedIn && inAuthGroup) {
       router.replace('/(tabs)');
     }
-  }, [isLoggedIn, segments, isNavigationReady]);
+  }, [isLoggedIn, segments, isNavigationReady, router]);
 
   if (!isNavigationReady) {
     return (
