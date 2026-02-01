@@ -2,20 +2,30 @@ import 'dotenv/config'
 import { faker } from '@faker-js/faker'
 import { prisma } from './client'
 import { TransactionType, Frequency } from '../prisma/generated/client'
+import { scryptAsync } from '@noble/hashes/scrypt.js'
+import { hex } from './utils/hex'
 
-// Hash password using bcrypt (better-auth compatible)
-// better-auth uses bcrypt with 10 rounds by default
-async function hashPassword(password: string): Promise<string> {
-  try {
-    // Try to use bcrypt if available
-    const bcrypt = await import('bcrypt')
-    return await bcrypt.hash(password, 10)
-  } catch (error) {
-    // If bcrypt is not available, throw an error with instructions
-    throw new Error(
-      'bcrypt is required for password hashing. Please install it: pnpm add -D bcrypt @types/bcrypt',
-    )
-  }
+const config = {
+  N: 16384,
+  r: 16,
+  p: 1,
+  dkLen: 64,
+}
+
+async function generateKey(password: string, salt: string) {
+  return await scryptAsync(password.normalize('NFKC'), salt, {
+    N: config.N,
+    p: config.p,
+    r: config.r,
+    dkLen: config.dkLen,
+    maxmem: 128 * config.N * config.r * 2,
+  })
+}
+
+export const hashPassword = async (password: string) => {
+  const salt = hex.encode(crypto.getRandomValues(new Uint8Array(16)))
+  const key = await generateKey(password, salt)
+  return `${salt}:${hex.encode(key)}`
 }
 
 ;(async () => {

@@ -1,8 +1,11 @@
-import { createServerFn } from '@tanstack/react-start'
 import { findTransactions } from './transactions.server'
+import type { TRPCRouterRecord } from '@trpc/server'
+import { publicProcedure } from '@/integrations/trpc/init'
 
-export const getTransactions = createServerFn({ method: 'GET' }).handler(
-  async () => {
-    return findTransactions()
-  },
-)
+export const transactionRouter = {
+  list: publicProcedure.query(async () => {
+    const { data, error } = await findTransactions()
+
+    return { data, error }
+  }),
+} satisfies TRPCRouterRecord
