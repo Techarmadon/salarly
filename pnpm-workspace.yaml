@@ -1,10 +1,10 @@
 packages:
   - apps/*
-  - apps/*/
-  - apps/*/*
   - packages/*
+
 onlyBuiltDependencies:
   - '@prisma/engines'
+  - bcrypt
   - core-js-pure
   - esbuild
   - prisma
