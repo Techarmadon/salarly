@@ -1,42 +1,41 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  StyleSheet, 
-  KeyboardAvoidingView, 
+import React, { useState } from 'react'
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView
-} from 'react-native';
-import { TextInput, Button, Text, Surface, useTheme } from 'react-native-paper';
-import { useAuth } from '../../contexts/AuthContext';
-import { useRouter } from 'expo-router';
-import { colors } from '../../constants/theme';
+  ScrollView,
+} from 'react-native'
+import { TextInput, Button, Text, Surface, useTheme } from 'react-native-paper'
+import { useAuth } from '../../contexts/AuthContext'
+import { useRouter } from 'expo-router'
+import { colors } from '../../constants/theme'
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  
-  const { login } = useAuth();
-  const router = useRouter();
-  const theme = useTheme();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
+  const { login } = useAuth()
+  const router = useRouter()
+  const theme = useTheme()
 
   const handleLogin = async () => {
-    setError('');
-    setLoading(true);
+    setError('')
+    setLoading(true)
 
     try {
-      await login(email, password);
-      router.replace('/(tabs)');
-    } catch (err) {
-      setError('Invalid email or password');
+      await login(email, password)
+      router.replace('/(tabs)')
+    } catch (err: any) {
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -44,37 +43,37 @@ export default function LoginScreen() {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
         >
           <Surface style={styles.surface} elevation={4}>
-            <Text variant="headlineLarge" style={styles.title}>
+            <Text variant='headlineLarge' style={styles.title}>
               Welcome Back
             </Text>
-            <Text variant="bodyMedium" style={styles.subtitle}>
+            <Text variant='bodyMedium' style={styles.subtitle}>
               Sign in to continue
             </Text>
 
             <TextInput
-              label="Email"
+              label='Email'
               value={email}
               onChangeText={setEmail}
-              mode="outlined"
-              keyboardType="email-address"
-              autoCapitalize="none"
+              mode='outlined'
+              keyboardType='email-address'
+              autoCapitalize='none'
               style={styles.input}
-              left={<TextInput.Icon icon="email" />}
+              left={<TextInput.Icon icon='email' />}
             />
 
             <TextInput
-              label="Password"
+              label='Password'
               value={password}
               onChangeText={setPassword}
-              mode="outlined"
+              mode='outlined'
               secureTextEntry={!showPassword}
               style={styles.input}
-              left={<TextInput.Icon icon="lock" />}
+              left={<TextInput.Icon icon='lock' />}
               right={
                 <TextInput.Icon
                   icon={showPassword ? 'eye-off' : 'eye'}
@@ -90,7 +89,7 @@ export default function LoginScreen() {
             ) : null}
 
             <Button
-              mode="contained"
+              mode='contained'
               onPress={handleLogin}
               loading={loading}
               disabled={loading || !email || !password}
@@ -99,14 +98,14 @@ export default function LoginScreen() {
               Login
             </Button>
 
-            <Text variant="bodySmall" style={styles.hint}>
-              Hint: Enter any email and password to login
+            <Text variant='bodySmall' style={styles.hint}>
+              Don't have an account? <a href='\'>Register</a> now.
             </Text>
           </Surface>
         </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -151,4 +150,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.light.mutedForeground,
   },
-});
+})

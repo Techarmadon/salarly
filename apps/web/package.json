@@ -16,6 +16,7 @@
     "test:e2e": "pnpm exec playwright test"
   },
   "dependencies": {
+    "@better-auth/expo": "^1.4.18",
     "@hookform/resolvers": "5.2.2",
     "@prisma/adapter-pg": "7.2.0",
     "@react-email/components": "1.0.4",
@@ -31,10 +32,7 @@
     "@tanstack/react-router-ssr-query": "1.147.1",
     "@tanstack/react-start": "1.147.1",
     "@tanstack/react-table": "8.21.3",
-    "@trpc/client": "11.9.0",
-    "@trpc/server": "11.9.0",
-    "@trpc/tanstack-react-query": "11.9.0",
-    "better-auth": "1.4.12",
+    "better-auth": "1.4.18",
     "lucide-react": "0.562.0",
     "motion": "12.25.0",
     "nitro": "3.0.1-alpha.1",
