@@ -1,15 +1,21 @@
 model Transaction {
-  id         String          @id
-  userId     String
+  id String @id
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   categoryId String?
-  type       TransactionType
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  title String
+  notes String?
+
+  type TransactionType
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  category Category?       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  rule     RecurringRule[]
+  rules RecurringRule[]
 
   @@index([userId])
 }
