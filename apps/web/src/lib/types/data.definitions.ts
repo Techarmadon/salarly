@@ -24,8 +24,6 @@ export const TransactionSchema = z.object({
         endDate: z.coerce.date().optional(),
 
         byMonthDay: z.number().int().min(1).max(31).optional(),
-
-        isActive: z.boolean().default(true),
       }),
     )
     .min(1, {

@@ -124,8 +124,8 @@ export const hashPassword = async (password: string) => {
     })
 
     // Create a mix of one-time and recurring transactions
-    const oneTimeTransactionsCount = 30
-    const recurringTransactionsCount = 5
+    const oneTimeTransactionsCount = 20
+    const recurringTransactionsCount = 20
 
     const oneTimeTransactions = Array.from(
       { length: oneTimeTransactionsCount },
@@ -138,11 +138,14 @@ export const hashPassword = async (password: string) => {
         const category = hasCategory
           ? faker.helpers.arrayElement(categories)
           : null
+        const hasNotes = faker.datatype.boolean({ probability: 0.5 })
 
         return {
           id: faker.string.uuid(),
           userId: testUser.id,
           categoryId: category?.id ?? null,
+          title: faker.finance.transactionDescription(),
+          notes: hasNotes ? faker.lorem.sentence() : null,
           type,
         }
       },
@@ -172,6 +175,7 @@ export const hashPassword = async (password: string) => {
       const category = hasCategory
         ? faker.helpers.arrayElement(categories)
         : null
+      const hasNotes = faker.datatype.boolean({ probability: 0.5 })
 
       const transactionId = faker.string.uuid()
       const frequency = faker.helpers.arrayElement<Frequency>([
@@ -196,6 +200,8 @@ export const hashPassword = async (password: string) => {
         id: transactionId,
         userId: testUser.id,
         categoryId: category?.id ?? null,
+        title: faker.finance.transactionDescription(),
+        notes: hasNotes ? faker.lorem.sentence() : null,
         type,
       })
 
