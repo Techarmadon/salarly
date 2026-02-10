@@ -2,7 +2,7 @@ import { betterAuth } from 'better-auth'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { prisma } from '@salarly/database'
-import { expo } from "@better-auth/expo";
+import { expo } from '@better-auth/expo'
 import { sendResetPassword } from '@/lib/auth-actions'
 
 export const auth: ReturnType<typeof betterAuth> = betterAuth({
@@ -16,5 +16,8 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
     // should always be the last plugin
     tanstackStartCookies(),
   ],
-  // docs said to add trustedOrigins but right now it works without it too.
+  trustedOrigins: (process.env.BETTER_AUTH_URL ?? 'http://localhost:3000')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean),
 })

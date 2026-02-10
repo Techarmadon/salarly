@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { TextInput, Button, Text, Surface, useTheme } from 'react-native-paper'
 import { useAuth } from '../../contexts/AuthContext'
-import { useRouter } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import { colors } from '../../constants/theme'
 
 export default function LoginScreen() {
@@ -99,7 +99,13 @@ export default function LoginScreen() {
             </Button>
 
             <Text variant='bodySmall' style={styles.hint}>
-              Don't have an account? <a href='\'>Register</a> now.
+              <Text variant='bodySmall' style={styles.hint}>
+                Don't have an account?{' '}
+                <Link href='/'>
+                  <Text style={{ color: theme.colors.primary }}>Register</Text>
+                </Link>{' '}
+                now.
+              </Text>{' '}
             </Text>
           </Surface>
         </ScrollView>

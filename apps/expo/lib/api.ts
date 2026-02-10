@@ -1,4 +1,4 @@
-import { authClient } from "./auth-client";
+import { authClient } from './auth-client'
 
 export const authenticatedFetch = async (url: string, options: RequestInit = {}) => {
     const cookies = authClient.getCookie();
